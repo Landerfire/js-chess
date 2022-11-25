@@ -13,7 +13,7 @@ function App() {
 	function resetGame() {
 		const newBoard = new Board();
 		newBoard.initCells();
-		newBoard.initFigures();
+		newBoard.addFigures();
 		setBoard(newBoard);
 	}
 
