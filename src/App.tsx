@@ -1,10 +1,25 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
+import BoardComponent from './components/BoardComponent';
+import { Board } from './models/Board';
 
 function App() {
+	const [board, setBoard] = useState(new Board());
+
+	useEffect(() => {
+		resetGame();
+	}, []);
+
+	function resetGame() {
+		const newBoard = new Board();
+		newBoard.initCells();
+		newBoard.initFigures();
+		setBoard(newBoard);
+	}
+
 	return (
 		<div className="App">
-			<h1>React Chess</h1>
+			<BoardComponent board={board} />
 		</div>
 	);
 }
