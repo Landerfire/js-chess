@@ -40,13 +40,26 @@ export class Figure {
 		return { position: this.position, name: this.name, color: this.color, id: this.id };
 	}
 
+	public getFigureColor() {
+		return this.color;
+	}
+
+	public getFigureName() {
+		return this.name;
+	}
+
 	public getFigureByPosition(position: string) {
-		if (position === this.position) return this
+		if (position === this.position) return this;
 	}
 
 	public moveFigure(currentCell: Cell, targetCell: Cell): void {
 		// this.position = targetCell.id
-		targetCell.setFigure(this)
-		currentCell.removeFigureFromCell()
+		targetCell.setFigure(this);
+		currentCell.removeFigureFromCell();
+	}
+
+	public canAttack(cell: Cell): boolean {
+		if (cell.isEmpty()) return true;
+		return this.color !== cell.figure?.getFigureColor() && cell.figure?.getFigureName() !== FigureNames.KING;
 	}
 }

@@ -19,6 +19,10 @@ export class Cell {
 		this.figure = null;
 	}
 
+	public getId() {
+		return this.id;
+	}
+
 	public getCell() {
 		return {
 			x: this.x,
@@ -26,7 +30,7 @@ export class Cell {
 			color: this.color,
 			id: this.id,
 			// figure: this.figure ? `${this.figure?.name} ${this.figure?.color}` : null,
-			figure: this.getFigure()
+			figure: this.getFigure(),
 		};
 	}
 
@@ -48,7 +52,7 @@ export class Cell {
 	}
 
 	public moveFigure(cell: Cell) {
-		cell.setFigure(this.figure!)
-		this.removeFigureFromCell()
+		cell.setFigure(this.figure!);
+		this.removeFigureFromCell();
 	}
 }

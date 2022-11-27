@@ -13,11 +13,14 @@ const BoardComponent: FC<BoardComponentProps> = ({ board, setBoard }) => {
 
 	useEffect(() => {
 		updateBoard();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedCell]);
 
 	function click(cell: Cell) {
-		if (selectedCell && selectedCell.figure) {
+		if (selectedCell && selectedCell.figure && selectedCell.figure.canAttack(cell)) {
 			selectedCell.moveFigure(cell);
+			setSelectedCell(null);
+		} else if (selectedCell?.getId() === cell.getId()) {
 			setSelectedCell(null);
 		} else {
 			setSelectedCell(cell);
@@ -34,7 +37,13 @@ const BoardComponent: FC<BoardComponentProps> = ({ board, setBoard }) => {
 			{board.cells.map((row, index) => (
 				<React.Fragment key={index}>
 					{row.map((cell) => (
-						<CellComponent key={cell.id} cell={cell} color={cell.color} click={click} selected={selectedCell?.id === cell.id} />
+						<CellComponent
+							key={cell.id}
+							cell={cell}
+							color={cell.color}
+							click={click}
+							selected={selectedCell?.id === cell.id}
+						/>
 					))}
 				</React.Fragment>
 			))}
