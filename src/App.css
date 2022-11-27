@@ -57,3 +57,8 @@ body {
 	background-color: rgb(105, 105, 105);
 	color: #fff;
 }
+
+.selected {
+	background-color: lightgreen;
+	color: #000;
+}

@@ -1,7 +1,6 @@
 import { Colors } from '../utils/Colors';
 import { Cell } from './Cell';
 import { Bishop } from './figures/Bishop';
-import { Figure } from './figures/Figure';
 import { King } from './figures/King';
 import { Knight } from './figures/Knight';
 import { Pawn } from './figures/Pawn';
@@ -61,6 +60,12 @@ export class Board {
 			}
 			this.cells.push(row);
 		}
+	}
+
+	public getCopyBoard(): Board {
+		const newBoard = new Board();
+		newBoard.cells = this.cells;
+		return newBoard;
 	}
 
 	public addFigures() {

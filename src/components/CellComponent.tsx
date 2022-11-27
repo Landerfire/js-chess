@@ -5,21 +5,15 @@ import { Colors } from '../utils/Colors';
 interface CellComponentProps {
 	color: Colors;
 	cell: Cell;
+	selected: boolean
+	click: (cell: Cell) => void;
 }
 
-const CellComponent: FC<CellComponentProps> = ({ cell, color }) => {
-	const classNames = `cell ${color}`;
-
-	function getCell() {
-		console.log(cell.getCell());
-		console.log(cell.isEmpty());
-		if (!cell.isEmpty()) {
-			console.log(cell.figure?.getFigure());
-		}
-	}
+const CellComponent: FC<CellComponentProps> = ({ cell, color, selected, click }) => {
+	const classNames = `cell ${color} ${selected && 'selected'}`;
 
 	return (
-		<div className={classNames} onClick={() => getCell()}>
+		<div className={classNames} onClick={() => click(cell)}>
 			{cell.figure?.image && <img src={cell.figure?.image} alt="" />}
 			<span className="cell_number">{cell.id}</span>
 		</div>

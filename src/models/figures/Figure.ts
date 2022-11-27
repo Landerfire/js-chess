@@ -1,5 +1,6 @@
 import logo from '../../assets/black-king.png';
 import { Colors } from '../../utils/Colors';
+import { Cell } from '../Cell';
 
 export enum FigureNames {
 	FIGURE = 'figure',
@@ -37,5 +38,15 @@ export class Figure {
 
 	public getFigure() {
 		return { position: this.position, name: this.name, color: this.color, id: this.id };
+	}
+
+	public getFigureByPosition(position: string) {
+		if (position === this.position) return this
+	}
+
+	public moveFigure(currentCell: Cell, targetCell: Cell): void {
+		// this.position = targetCell.id
+		targetCell.setFigure(this)
+		currentCell.removeFigureFromCell()
 	}
 }

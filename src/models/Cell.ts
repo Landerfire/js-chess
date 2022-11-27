@@ -42,4 +42,13 @@ export class Cell {
 	public getFigure() {
 		return this.figure ? `${this.figure?.name} ${this.figure?.color}` : this.figure;
 	}
+
+	public removeFigureFromCell() {
+		this.figure = null;
+	}
+
+	public moveFigure(cell: Cell) {
+		cell.setFigure(this.figure!)
+		this.removeFigureFromCell()
+	}
 }
