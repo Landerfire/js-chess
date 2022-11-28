@@ -9,22 +9,27 @@ interface BoardComponentProps {
 }
 
 const BoardComponent: FC<BoardComponentProps> = ({ board, setBoard }) => {
-	const [selectedCell, setSelectedCell] = useState<Cell | null>();
+	const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
 
 	useEffect(() => {
-		updateBoard();
+		highlightCells();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedCell]);
 
 	function click(cell: Cell) {
-		if (selectedCell && selectedCell.figure && selectedCell.figure.canAttack(cell)) {
+		if (selectedCell && selectedCell.getFigure() && selectedCell.getFigure()?.canAttack(cell)) {
 			selectedCell.moveFigure(cell);
 			setSelectedCell(null);
-		} else if (selectedCell?.getId() === cell.getId()) {
+		} else if (!cell.getFigure() || selectedCell?.getId() === cell.getId()) {
 			setSelectedCell(null);
 		} else {
 			setSelectedCell(cell);
 		}
+	}
+
+	function highlightCells() {
+		board.highlightCells(selectedCell!);
+		updateBoard();
 	}
 
 	function updateBoard() {
@@ -38,11 +43,11 @@ const BoardComponent: FC<BoardComponentProps> = ({ board, setBoard }) => {
 				<React.Fragment key={index}>
 					{row.map((cell) => (
 						<CellComponent
-							key={cell.id}
+							key={cell.getId()}
 							cell={cell}
-							color={cell.color}
+							color={cell.getColor()}
 							click={click}
-							selected={selectedCell?.id === cell.id}
+							selected={!!selectedCell?.compareId(cell)}
 						/>
 					))}
 				</React.Fragment>

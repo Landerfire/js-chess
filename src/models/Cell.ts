@@ -9,6 +9,7 @@ export class Cell {
 	readonly color: Colors;
 	readonly id: string;
 	figure: Figure | null;
+	available: boolean;
 
 	constructor(color: Colors, x: number, y: number) {
 		this.x = 9 - x;
@@ -17,10 +18,19 @@ export class Cell {
 		const literal = columnsLiterals[y];
 		this.id = literal + this.x.toString();
 		this.figure = null;
+		this.available = false;
 	}
 
-	public getId() {
+	public getId(): string {
 		return this.id;
+	}
+
+	public compareId(cell: Cell): boolean {
+		return this.getId() === cell.getId();
+	}
+
+	public getColor(): Colors {
+		return this.color;
 	}
 
 	public getCell() {
@@ -44,7 +54,7 @@ export class Cell {
 	}
 
 	public getFigure() {
-		return this.figure ? `${this.figure?.name} ${this.figure?.color}` : this.figure;
+		return this.figure ? this.figure : null;
 	}
 
 	public removeFigureFromCell() {

@@ -14,7 +14,7 @@ export enum FigureNames {
 
 export class Figure {
 	color: Colors;
-	image: typeof logo | null;
+	image: typeof logo;
 	name: FigureNames;
 	id: number;
 	position: string | null;
@@ -22,7 +22,7 @@ export class Figure {
 	constructor(color: Colors) {
 		this.color = color;
 		this.name = FigureNames.FIGURE;
-		this.image = null;
+		this.image = '';
 		this.id = Math.random();
 		this.position = null;
 		// this.position = position;
@@ -36,16 +36,20 @@ export class Figure {
 		return this.position;
 	}
 
-	public getFigure() {
-		return { position: this.position, name: this.name, color: this.color, id: this.id };
+	public getFigure(): Figure {
+		return this;
 	}
 
-	public getFigureColor() {
+	public getColor(): Colors {
 		return this.color;
 	}
 
-	public getFigureName() {
+	public getName(): FigureNames {
 		return this.name;
+	}
+
+	public getImage(): typeof logo {
+		return this.image;
 	}
 
 	public getFigureByPosition(position: string) {
@@ -60,6 +64,6 @@ export class Figure {
 
 	public canAttack(cell: Cell): boolean {
 		if (cell.isEmpty()) return true;
-		return this.color !== cell.figure?.getFigureColor() && cell.figure?.getFigureName() !== FigureNames.KING;
+		return this.color !== cell.figure?.getColor() && cell.figure?.getName() !== FigureNames.KING;
 	}
 }

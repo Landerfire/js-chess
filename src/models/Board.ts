@@ -68,6 +68,16 @@ export class Board {
 		return newBoard;
 	}
 
+	public highlightCells(selectedCell: Cell | null) {
+		for (let i = 0; i < this.cells.length; i++) {
+			const row = this.cells[i];
+			for (let j = 0; j < row.length; j++) {
+				const target = row[j];
+				target.available = !!selectedCell?.figure?.canAttack(target);
+			}
+		}
+	}
+
 	public addFigures() {
 		this.addPawns();
 		this.addRooks();

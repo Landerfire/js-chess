@@ -62,3 +62,14 @@ body {
 	background-color: lightgreen;
 	color: #000;
 }
+
+.available {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background-color: green;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
+	z-index: 99;
+}

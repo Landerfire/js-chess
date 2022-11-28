@@ -5,7 +5,7 @@ import { Colors } from '../utils/Colors';
 interface CellComponentProps {
 	color: Colors;
 	cell: Cell;
-	selected: boolean
+	selected: boolean;
 	click: (cell: Cell) => void;
 }
 
@@ -14,7 +14,8 @@ const CellComponent: FC<CellComponentProps> = ({ cell, color, selected, click })
 
 	return (
 		<div className={classNames} onClick={() => click(cell)}>
-			{cell.figure?.image && <img src={cell.figure?.image} alt="" />}
+			{cell.available && <div className="available"></div>}
+			{cell.getFigure() && <img src={cell.getFigure()?.getImage()} alt="" />}
 			<span className="cell_number">{cell.id}</span>
 		</div>
 	);
