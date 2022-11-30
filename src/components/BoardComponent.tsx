@@ -16,6 +16,36 @@ const BoardComponent: FC<BoardComponentProps> = ({ board, setBoard }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedCell]);
 
+	/* 
+	public isEmptyVertical(target: Cell): boolean {
+		if (this.x !== target.x) {
+			return false;
+		}
+		const min = Math.min(this.y, target.y);
+		const max = Math.max(this.y, target.y);
+		for (let y = min + 1; y < max; y++) {
+			if (!this.board.getCell(this.x, y).isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+*/
+
+	// function rookPattern(selectedCell: Cell, targetCell: Cell) {
+	// 	if (selectedCell.getColumnLiteral() !== targetCell.getColumnLiteral()) return false;
+
+	// 	const min = Math.min(selectedCell.getRowNumber(), targetCell.getRowNumber());
+	// 	const max = Math.max(selectedCell.getRowNumber(), targetCell.getRowNumber());
+	// 	for (let y = min + 1; y < max; y++) {
+	// 		if (!board.getCell(selectedCell.getColumnLiteral(), y).isEmpty()) {
+	// 			return false;
+	// 		}
+	// 	}
+	// 	return true;
+	// }
+
+	//! Сделать валидацию хода фигур здесь
 	function click(cell: Cell) {
 		if (selectedCell && selectedCell.getFigure() && selectedCell.getFigure()?.canAttack(cell)) {
 			selectedCell.moveFigure(cell);

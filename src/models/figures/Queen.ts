@@ -9,3 +9,5 @@ export class Queen extends Figure {
 		this.image = this.color === Colors.BLACK ? FiguresImages.black_queen : FiguresImages.white_queen;
 	}
 }
+
+

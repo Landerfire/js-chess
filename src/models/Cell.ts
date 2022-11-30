@@ -25,6 +25,14 @@ export class Cell {
 		return this.id;
 	}
 
+	public getColumnLiteral(): string {
+		return this.getId()[0];
+	}
+
+	public getRowNumber(): number {
+		return parseInt(this.getId()[1]);
+	}
+
 	public compareId(cell: Cell): boolean {
 		return this.getId() === cell.getId();
 	}
@@ -48,6 +56,14 @@ export class Cell {
 		return this.figure ? false : true;
 	}
 
+	public isAvailable(): boolean {
+		return this.available;
+	}
+
+	public setAvailable(bool: boolean) {
+		this.available = bool;
+	}
+
 	public setFigure(figure: Figure) {
 		this.figure = figure;
 		this.figure.setPosition(this.id);
@@ -65,4 +81,28 @@ export class Cell {
 		cell.setFigure(this.figure!);
 		this.removeFigureFromCell();
 	}
+
+	// public isEmptyVertical(target: Cell):boolean {
+	// 	if (this.getColumnLiteral() !== target.getColumnLiteral()) return false
+
+	// 	const min = Math.min(this.getRowNumber(), target.getRowNumber())
+	// 	const max = Math.max(this.getRowNumber(), target.getRowNumber())
+	// 	for (let y = min + 1; y < max; y++) {
+	// 	}
+	// }
 }
+/* 
+public isEmptyVertical(target: Cell): boolean {
+	if (this.x !== target.x) {
+		return false;
+	}
+	const min = Math.min(this.y, target.y);
+	const max = Math.max(this.y, target.y);
+	for (let y = min + 1; y < max; y++) {
+		if (!this.board.getCell(this.x, y).isEmpty()) {
+			return false;
+		}
+	}
+	return true;
+}
+*/

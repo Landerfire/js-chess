@@ -1,6 +1,7 @@
 import { Colors } from '../utils/Colors';
-import { Cell } from './Cell';
+import { Cell, columnsLiterals } from './Cell';
 import { Bishop } from './figures/Bishop';
+import { Figure } from './figures/Figure';
 import { King } from './figures/King';
 import { Knight } from './figures/Knight';
 import { Pawn } from './figures/Pawn';
@@ -62,6 +63,11 @@ export class Board {
 		}
 	}
 
+	public getCell(column: string, row: number): Cell {
+		const columnNumber = columnsLiterals.indexOf(column);
+		return this.cells[row][columnNumber];
+	}
+
 	public getCopyBoard(): Board {
 		const newBoard = new Board();
 		newBoard.cells = this.cells;
@@ -73,10 +79,27 @@ export class Board {
 			const row = this.cells[i];
 			for (let j = 0; j < row.length; j++) {
 				const target = row[j];
-				target.available = !!selectedCell?.figure?.canAttack(target);
+				target.setAvailable(!!selectedCell?.figure?.canAttack(target));
 			}
 		}
 	}
+
+	public isEmptyVertical(selectedCell: Cell, targetCell: Cell): boolean {
+		if (selectedCell.getColumnLiteral() !== targetCell.getColumnLiteral()) return false;
+
+		const min = Math.min(selectedCell.getRowNumber(), targetCell.getRowNumber());
+		const max = Math.max(selectedCell.getRowNumber(), targetCell.getRowNumber());
+		for (let y = min + 1; y < max; y++) {
+			if (!this.getCell(selectedCell.getColumnLiteral(), y).isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// public moveFigure(selectedCell: Cell, targetCell: Cell) {
+
+	// }
 
 	public addFigures() {
 		this.addPawns();
@@ -87,3 +110,19 @@ export class Board {
 		this.addKings();
 	}
 }
+
+/* 
+public isEmptyVertical(target: Cell): boolean {
+	if (this.x !== target.x) {
+		return false;
+	}
+	const min = Math.min(this.y, target.y);
+	const max = Math.max(this.y, target.y);
+	for (let y = min + 1; y < max; y++) {
+		if (!this.board.getCell(this.x, y).isEmpty()) {
+			return false;
+		}
+	}
+	return true;
+}
+*/

@@ -32,8 +32,8 @@ export class Figure {
 		this.position = position;
 	}
 
-	public getPosition() {
-		return this.position;
+	public getPosition(): string {
+		return this.position!;
 	}
 
 	public getFigure(): Figure {
@@ -62,8 +62,20 @@ export class Figure {
 		currentCell.removeFigureFromCell();
 	}
 
+	public isAlly(target: Figure): boolean {
+		return this.getColor() === target.getColor();
+	}
+
+	public isKing(): boolean {
+		return this.getName() === FigureNames.KING;
+	}
+
 	public canAttack(cell: Cell): boolean {
 		if (cell.isEmpty()) return true;
-		return this.color !== cell.figure?.getColor() && cell.figure?.getName() !== FigureNames.KING;
+		if (this.isAlly(cell.getFigure()!)) {
+			return false;
+		}
+		if (cell.getFigure()!.isKing()) return false;
+		return true;
 	}
 }
